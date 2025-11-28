@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Dataset</title>
+</head>
+<body>
+    <h1 align="center">Participantion and Sumission</h1>
+    <p style="text-align: justify;">
+        Participants are required to submit a Docker image that contains a single model capable of performing 
+        multi-task processing on carotid artery plaques. The task types include segmentation and classification.
+    </p>
+
+    
+
+    <h3>Dataset Structure</h3>
+    <ul>
+    <li>
+        train/
+        <ul>
+        <li>
+            img/
+            <ul>
+            <li>001.h5</li>
+            <li>002.h5</li>
+            <li>003.h5</li>
+            <li>...</li>
+            </ul>
+        </li>
+        <li>
+            mask/
+            <ul>
+            <li>001_label.h5</li>
+            <li>002_label.h5</li>
+            <li>003_label.h5</li>
+            <li>...</li>
+            </ul>
+        </li>
+        <li>
+            train.list
+        </li>
+        </ul>
+    </li>
+    </ul>
+
+    <h3>Code Structure</h3>
+    <ul>
+    <li>
+        Code/
+        <ul>
+        <li>
+            augmentations/
+            <ul>
+            <li>ctaugment.py</li>
+            </ul>
+        </li>
+        <li>
+            utils/
+            <ul>
+            <li>vis_utils.py</li>
+            <li>util.py</li>
+            <li>ramps.py</li>
+            <li>eval_utils.py</li>
+            <li>losses.py</li>
+            </ul>
+        </li>
+        <li>
+            unet.py
+        </li>
+        <li>
+            test.py
+        </li>
+        <li>
+            train.py
+        </li>
+        </ul>
+    </li>
+    </ul>
+    <p style="text-align: justify; padding-left: 2em; padding-right: 2em;">
+        For the usage of Baseline, please refer to the readme.md file in the root directory of the project documentation.
+    </p>
+
+    <h3>Baseline and Submission Format</h3>
+    <p style="text-align: justify; padding-left: 2em; padding-right: 2em;">
+        Participants can get the baseline by the following channel <b>(Including necessary guidelines)</b>:
+        <a href="about:blank" target="Baseline">Baseline</a>
+    </p>
+    <h4 style="padding-left: 2em;">Submission File Structure</h4>
+    <ul>
+    <li>
+        docker_submission_template/
+        <ul>
+        <li>
+            models/
+            <ul>
+            <li>model.py</li>
+            </ul>
+        </li>
+        <li>
+            weights/
+            <ul>
+            <li>best_model.pth</li>
+            </ul>
+        </li>
+        <li>
+            Dockerfile
+        </li>
+        <li>
+            requirements.txt
+        </li>
+        <li>
+            run_infer.py
+        </li>
+        </ul>
+    </li>
+    </ul>
+    <h3>How to Submit</h3>
+    <p style="text-align: justify; padding-left: 2em; padding-right: 2em;">
+        Please send an email to <EMAIL> with the subject "F: Dataset Submission" and attach your submission file.
+    </p>
+        
+</body>
+</html>
