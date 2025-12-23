@@ -1,0 +1,104 @@
+version: 2
+title: "Carotid Ultrasound Seg+Cls Challenge"
+description: "Semi-supervised carotid ultrasound segmentation + classification benchmark on Codabench."
+image: "CSV2026_logo.png"
+
+registration_auto_approve: true
+docker_image: codalab/codalab-legacy:py39
+enable_detailed_results: true
+
+# --- 文档页面 ---
+terms: pages/terms.html
+pages:
+  - title: Overview
+    file: pages/overview.html
+  - title: Evaluation
+    file: pages/evaluation.html    
+  - title: Timeline
+    file: pages/timeline.html
+  - title: Participantion and submission
+    file: pages/P&S.html
+  - title: Terms
+    file: pages/terms.html
+
+
+# --- 任务定义（重点：是一个 list，每个元素是 dict，并带 index）---
+tasks:
+  - index: 0
+    name: "Validation Task"
+    description: "Validation phase task for carotid US seg+cls."
+    is_public: false
+    input_data: data/val        # 这里指向 bundle 里的路径
+    reference_data: data/val    # 你的 label 在这里
+    scoring_program: scoring_program
+
+  - index: 1
+    name: "Test Task"
+    description: "Test phase task for carotid US seg+cls."
+    is_public: false
+    input_data: data/test
+    reference_data: data/test
+    scoring_program: scoring_program
+
+# --- sample code / baseline（可以先留空）---
+solutions: []
+
+# --- Phase 定义（注意：也是 list，每个元素有 index，里面的 tasks 是“整数 index 列表”）---
+phases:
+  - index: 0
+    name: "Validation Phase"
+    description: "Validation phase (online feedback on val set)."
+    start: 1-1-2025          # 月-日-年，和官方示例一致的写法
+    end: 12-31-2025
+    max_submissions_per_day: 10
+    max_submissions: 1000
+    execution_time_limit: 7200
+    tasks:
+      - 0                   # 引用上面 tasks 里的 index=0
+    solutions: []
+    starting_kit: starting_kit
+
+  - index: 1
+    name: "Test Phase"
+    description: "Final test phase (hidden labels)."
+    start: 1-1-2026
+    end: 12-31-2026
+    max_submissions_per_day: 3
+    max_submissions: 10
+    execution_time_limit: 7200
+    tasks:
+      - 1                   # 引用 index=1 的 Test Task
+    solutions: []
+    starting_kit: starting_kit
+
+# --- Leaderboard：两个 phase 共用同一组指标与列名 ---
+leaderboards:
+  - index: 0
+    title: "Results"
+    key: "Results"          # 这里要对应 scoring_program 输出 scores.json 里的顶层 key
+    submission_rule: "Force_Last"
+    columns:
+      - title: "Overall Score"
+        key: "overall_score"    # 0.5 * seg + 0.5 * cls_f1，在 evaluate.py 里算好
+        index: 0
+        sorting: desc
+
+      - title: "Seg Score"
+        key: "seg_score"        # (Dice + NSD)/2
+        index: 1
+        sorting: desc
+
+      - title: "Dice"
+        key: "seg_dice"
+        index: 2
+        sorting: desc
+
+      - title: "NSD"
+        key: "seg_nsd"
+        index: 3
+        sorting: desc
+
+      - title: "Cls Score"
+        key: "cls_f1"
+        index: 4
+        sorting: desc

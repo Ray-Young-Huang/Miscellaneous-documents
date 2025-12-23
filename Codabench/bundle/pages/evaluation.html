@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>Evaluation | ISBI Challenge</title>
+</head>
+
+<body>
+
+    <h2 align="center">ISBI 2026 - Ranking and Scoring Criteria of the CSV Challenge</h2>
+    <h3>Key requirements for the ranking process:</h3>
+    <p>
+        The final rankings were determined by a weighted combination of three components: Classification score: 
+        40% weight, Segmentation score: 40% weight, and Processing Time score: 20% weight. Considering that the 
+        objective of this task is to comprehensively evaluate the risk of carotid plaques through both classification 
+        and segmentation, we deemed classification and segmentation to be more critical than processing time, 
+        higher weights are assigned to these two aspects compared to processing time. This comprehensive evaluation 
+        aligns with the challenge’s objective to assess both segmentation, classification, and computational 
+        performance, ensuring a multi-dimensional assessment of participants’ solutions. The overall score is calculated as follows:
+    </p>
+    \[
+    S_{\text{Total}} = 0.4 \times S_{\text{Cls}} + 0.4 \times S_{\text{Seg}} + 0.2 \times S_{\text{Time}}
+    \]
+    <p>
+        Where S_cls represents classification score, S_seg represents segmentation score, and S_time represents 
+        processing time score. Figure 1 illustrates the overall score framework of our challenge.
+    </p>
+    <br>
+    <p>
+        <b>1. Classification Score: </b>Class imbalance is an inherent issue in this task. To comprehensively evaluate 
+        classification performance, we adopt the mean F1-score across all classes as the final classification score. 
+        The calculation formula is as follows:
+    </p>
+    \[
+    S_{\text{Cls}} = \frac{1}{N} \sum_{n=1}^{N} F_{1_i}
+    \]
+    <p>
+        Where N denotes the total number of classes.
+    </p>
+    <br>
+    <p>
+        <b>2. Segmentation Score: </b>As shown in Figure 1, in the semi-supervised segmentation task, segmentation 
+        score is calculated by both the vessel and plaque of the longitudinal and transverse views, each contributing 
+        50% to the overall segmentation score. 
+    </p>
+    <p>
+        For each view, the score is calculated based on two evaluation metrics — Dice Similarity Coefficient (DSC) 
+        and Normalized Surface Dice (NSD) — which are equally weighted (50%). Considering that accurate plaque segmentation 
+        is more clinically important than vessel segmentation, we assign a weight of 40% to the vessel and 60% to the plaque. 
+        The segmentation score is calculated as follows:
+    </p>
+    \[
+    S_{\text{seg}} = \frac{1}{2} \sum_{v \in \{\text{long, trans}\}} 0.4 \times S_{v, \text{vessel}} + 0.6 \times S_{v, \text{plaque}}
+    \]
+    <p>
+        Here, 𝑣 denotes the view type (longitudinal and transverse).
+    </p>
+    <br>
+    <p>
+        <b>3. Processing Time Score: </b>The processing time score is calculated based on the participant's 
+        inference time relative to a baseline time. The scoring rules are as follows:
+    </p>
+    <ul style="margin-left: 80px;">
+        <li style="list-style-type: disc;">If a participant's time was \( \leq 2/3 \) of the baseline time, their time usage was set to 
+            <strong>\( (2/3 \times \text{baseline time}) \)</strong>.</li>
+        <li style="list-style-type: disc;">If a participant's time was \( \geq 2 \) of the baseline time, their time usage was set to 
+            <strong>\( (2 \times \text{baseline time}) \)</strong>.</li>
+        <li style="list-style-type: disc;">Otherwise, it was set to <strong>(total time)</strong>.</li>
+    </ul>
+    <p>
+        After min-max normalization and score transformation was applied to yield a [0, 100] score. 
+    </p>    
+    <p>
+        The processing time score is calculated as follows:
+    </p>
+    \[
+    S_{\text{time}} = \frac{(-t_{\text{user}}) - (-T_{\text{max}})}{(-T_{\text{min}}) - (-T_{\text{max}})} \times 100
+    \]
+    <ul style="margin-left: 80px;">
+        <li style="list-style-type: disc;">\( t_{\text{user}} \) is the participant's (clipped) total time usage.</li>
+        <li style="list-style-type: disc;">\( T_{\text{min}} = 2/3 \times \) baseline time is the fastest acceptable case (upper bound).</li>
+        <li style="list-style-type: disc;">\( T_{\text{max}} = 2 \times \) baseline time is the slowest acceptable case (lower bound).</li>
+    </ul>
+    <p>
+        The baseline runtime will be released together with the dataset. 
+    </p>
+    <img src="assets/ranking.png" alt="Evaluation Framework" style="width:100%" align="center">
+    <p>
+        Each case includes B-mode carotid ultrasound images from two views: the longitudinal and transverse. For each case, segmentation results should be 
+        provided separately for both views, while a single classification result should be generated based on the combined information from both views.
+    </p>
+    <br>
+    <h3>Awards and Prizes:</h3>
+    <p>
+        We will provide cash prizes for the top 5 teams. A certificate will be awarded to the top 10 teams. The top 10 performing methods (teams) will be 
+        announced publicly and invited to give oral presentations during the ISBI 2026 conference.
+    </p>
+
+</body>
+</html>
+
