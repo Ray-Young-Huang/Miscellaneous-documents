@@ -1,0 +1,8 @@
+文章,年份,期刊,影响因子,数据种类,数据量,用到的方法,,,
+Medformer: A Multitask Multimodal Foundational Model for Medical Imaging,2025,Procedia Computer Science,4.1,MedMNIST 基准多模态数据集,70w以上,基于Transformer,,,
+Radio DINO: A foundation model for advanced radiomics and AI-driven medical imaging analysis,2025,"
+Computers in Biology and Medicine",13,多模态数据集,100w以上,Vision Transformer（ViT）为骨干的DINO网络,,,
+A foundation model for generalizable cancer diagnosis and survival prediction from histopathological images,2025,nature communications,15.7,病理组织图像,1177万,Masked Image Modeling 掩码图像建模,,,
+"Dual-masked contrastive learning based hypergraph foundation model for 
+whole slide images",2025,Pattern Recognition,15.8,病理组织图像,3000,对比学习,https://doi.org/10.1016/j.patcog.2025.111995,DMCL-HFM.pdf,
+A vision–language foundation model for precision oncology,2025,nature communications,48.5,病理组织图像和文本,5000 万病理图像和 10 亿病理相关文本,第一阶段对文本和图像各自做掩码建模学习，第二阶段使用对比学习实现图像和文本对齐,https://doi.org/10.1038/s41586-024-08378-w,A vision–language foundation model for precision oncology.pdf,
